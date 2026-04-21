@@ -1,7 +1,15 @@
-export function SignUp() {
-    return (
-        <div>
-            <h1>Sign Up</h1>
-        </div>
-    )
+import axios from "axios"
+import { useState } from "react"
+import { useNavigate } from "react-router"
+
+interface SignUp  {
+    email: string
+
+}
+
+const SignUp = () => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const navigate = useNavigate()
+
 }
