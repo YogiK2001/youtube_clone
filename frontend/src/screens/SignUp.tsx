@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { getHonkStyle } from "../styles/fonts";
+import jwt from "jsonwebtoken";
 
 interface SignUpSchema {
   username: string;
@@ -34,6 +35,8 @@ export function SignUp() {
       };
       const response = await axios.post("http://localhost:3000/signup", data);
       if (response.status === 201) {
+        const token = response.data.token;
+
         navigate("/signin");
       }
     } catch (error) {
