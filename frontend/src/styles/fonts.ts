@@ -7,11 +7,15 @@
 // Main font family (YouTube uses Roboto)
 export const FONTS = {
   // Primary font for most text
-  primary: "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif",
+  primary:
+    "Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif",
 
   // Secondary font (alternative, rarely used)
   secondary:
     "'Roboto Flex', Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+
+  // Display font (decorative)
+  honk: "Honk, system-ui",
 };
 
 // Font sizes for different elements
@@ -20,6 +24,14 @@ export const FONT_SIZES = {
   h1: "24px",
   h2: "20px",
   h3: "16px",
+
+  // Extra large sizes
+  xl: "32px",
+  "2xl": "36px",
+  "3xl": "42px",
+  "4xl": "48px",
+  "5xl": "56px",
+  "6xl": "64px",
 
   // Body text
   body: "14px",
@@ -58,15 +70,37 @@ export const TEXT_COLORS = {
   light: "#ffffff", // Light text on dark backgrounds
 };
 
+// Brand colors from SASTA YOUTUBE logo
+export const BRAND_COLORS = {
+  yellow: "#FFD700", // Bright yellow
+  pink: "#FF1493", // Vibrant magenta/pink
+  black: "#000000", // Deep black
+  darkYellow: "#FFC700", // Darker yellow for hover
+};
+
+
 // Helper function to generate consistent text styles
 // Usage: getTextStyle('body', 'medium')
 export function getTextStyle(
   size: keyof typeof FONT_SIZES,
-  weight: keyof typeof FONT_WEIGHTS = "normal"
+  weight: keyof typeof FONT_WEIGHTS = "normal",
 ) {
   return {
     fontSize: FONT_SIZES[size],
     fontWeight: FONT_WEIGHTS[weight],
     fontFamily: FONTS.primary,
   };
+}
+
+// Honk font special styles
+// Usage: getHonkStyle('h1')
+export function getHonkStyle(size: keyof typeof FONT_SIZES) {
+  return {
+    fontSize: FONT_SIZES[size],
+    fontFamily: FONTS.honk,
+    fontOpticalSizing: "auto",
+    fontWeight: 400,
+    fontStyle: "normal",
+    fontVariationSettings: "'MORF' 15, 'SHLN' 50",
+  } as const;
 }

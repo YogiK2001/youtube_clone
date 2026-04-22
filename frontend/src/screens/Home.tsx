@@ -6,7 +6,10 @@ import {
   FONT_WEIGHTS,
   TEXT_COLORS,
   getTextStyle,
+  BRAND_COLORS,
 } from "../styles/fonts";
+
+import { useNavigate } from "react-router";
 
 // Interface for Video data structure
 // This defines the shape of each video object we'll use
@@ -309,8 +312,7 @@ function Sidebar() {
             transition: "background-color 0.2s",
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.backgroundColor =
-              "#f0f0f0";
+            (e.currentTarget as HTMLElement).style.backgroundColor = "#f0f0f0";
           }}
           onMouseLeave={(e) => {
             (e.currentTarget as HTMLElement).style.backgroundColor =
@@ -327,6 +329,7 @@ function Sidebar() {
 
 // HEADER Component - Top navigation bar
 function Header() {
+  let navigate = useNavigate();
   return (
     <div
       style={{
@@ -390,6 +393,9 @@ function Header() {
             cursor: "pointer",
             ...getTextStyle("body", "medium"),
           }}
+          onClick={() => {
+            navigate("/signup");
+          }}
         >
           Sign In
         </button>
@@ -426,11 +432,13 @@ export function Home() {
   }, []);
 
   return (
-    <div style={{
-      backgroundColor: "#f9f9f9",
-      minHeight: "100vh",
-      fontFamily: FONTS.primary,
-    }}>
+    <div
+      style={{
+        backgroundColor: "#f9f9f9",
+        minHeight: "100vh",
+        fontFamily: FONTS.primary,
+      }}
+    >
       <Header />
       <div style={{ display: "flex", marginTop: "56px" }}>
         <Sidebar />
@@ -449,8 +457,7 @@ export function Home() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns:
-                "repeat(auto-fill, minmax(320px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
               gap: "16px",
               width: "100%",
             }}

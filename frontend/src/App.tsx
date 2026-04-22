@@ -12,8 +12,8 @@ export function App() {
     <Router>
       <Routes>
         <Route path="/watch" element={<VideoPage/>} />
-        <Route path="/signup" element={<SignIn/>} />
-        <Route path="/signin" element={<SignUp/>} />
+        <Route path="/signup" element={<SignUp/>} />
+        <Route path="/signin" element={<SignIn/>} />
         <Route path="/" element={<Home/>} />
       </Routes>
     </Router>

@@ -15,8 +15,13 @@
     "react-router": "^7.14.1"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.2.4",
+    "@types/bun": "latest",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/bun": "latest"
+    "autoprefixer": "^10.5.0",
+    "bun-plugin-tailwind": "^0.1.2",
+    "postcss": "^8.5.10",
+    "tailwindcss": "^4.2.4"
   }
 }

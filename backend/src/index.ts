@@ -2,12 +2,12 @@ import express from "express";
 import type { NextFunction, Request, Response } from "express";
 import * as z from "zod";
 import bcrypt from "bcrypt";
-import { prisma } from "./db";
+import { prisma } from "../db";
 import jwt from "jsonwebtoken";
 import cors from "cors";
-import { handleUserSignup } from "./src/services/userService";
-import { SignupError, ERROR_STATUS_MAP } from "./src/types/signup";
-import type { SignupOutput } from "./src/types/signup";
+import { handleUserSignup } from "./services/userService";
+import { SignupError, ERROR_STATUS_MAP } from "./types/signup";
+import type { SignupOutput } from "./types/signup";
 
 const app = express();
 app.use(express.json());
@@ -64,27 +64,8 @@ app.post("/signup", async (req, res) => {
     // The service returns SignupOutput (user data without password)
     const result: SignupOutput = await handleUserSignup(req.body);
 
-    // Validate JWT_SECRET exists
-    const jwtSecret = process.env.JWT_SECRET;
-    if (!jwtSecret) {
-      res
-        .status(500)
-        .json({ error: "JWT_SECRET is not defined in environment variables" });
-      return;
-    }
-
-    const token = jwt.sign(
-      {
-        username: result.username,
-      },
-      jwtSecret,
-      { expiresIn: "7d" },
-    );
     // Success! Return the user data with 201 Created status
-    res.status(201).json({
-      result: result,
-      token: token,
-    });
+    res.status(201).json(result);
   } catch (error: unknown) {
     // The service threw an error
     // We need to convert it to an HTTP response
