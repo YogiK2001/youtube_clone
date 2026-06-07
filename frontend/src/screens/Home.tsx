@@ -1,13 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {
-  FONTS,
-  FONT_SIZES,
-  FONT_WEIGHTS,
-  TEXT_COLORS,
-  getTextStyle,
-  BRAND_COLORS,
-} from "../styles/fonts";
 
 import { useNavigate } from "react-router";
 
@@ -167,104 +159,43 @@ interface VideoCardProps {
 
 function VideoCard({ video }: VideoCardProps) {
   return (
-    <div
-      style={{
-        cursor: "pointer",
-        transition: "transform 0.2s",
-      }}
-      onMouseEnter={(e) => {
-        // Small zoom effect when hovering over the card
-        (e.currentTarget as HTMLElement).style.transform = "scale(1.02)";
-      }}
-      onMouseLeave={(e) => {
-        // Return to normal size when not hovering
-        (e.currentTarget as HTMLElement).style.transform = "scale(1)";
-      }}
-    >
-      {/* THUMBNAIL SECTION - Shows the video preview image */}
-      <div style={{ position: "relative", marginBottom: "12px" }}>
+    <div className="cursor-pointer transition-transform duration-200 hover:scale-[1.02]">
+      {/* THUMBNAIL SECTION */}
+      <div className="relative mb-3">
         <img
           src={video.thumbnail}
           alt={video.title}
-          style={{
-            width: "100%",
-            height: "180px",
-            objectFit: "cover",
-            borderRadius: "12px",
-            backgroundColor: "#e0e0e0",
-          }}
+          className="h-45 w-full rounded-xl bg-border object-cover"
         />
         {/* Video duration badge - placeholder for now */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: "8px",
-            right: "8px",
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
-            color: "white",
-            padding: "4px 8px",
-            borderRadius: "4px",
-            fontSize: "12px",
-            fontWeight: "500",
-          }}
-        >
+        <div className="absolute bottom-2 right-2 rounded bg-black/80 px-2 py-1 text-xs font-medium text-white">
           12:34 {/* TODO: Replace with actual video duration */}
         </div>
       </div>
 
       {/* VIDEO INFO SECTION - Title, channel, views, date */}
-      <div style={{ display: "flex", gap: "12px" }}>
+      <div className="flex gap-3">
         {/* Channel Profile Picture */}
         <img
           src={video.channelImage}
           alt={video.channelName}
-          style={{
-            width: "36px",
-            height: "36px",
-            borderRadius: "50%",
-            flexShrink: 0,
-            backgroundColor: "#ccc",
-          }}
+          className="h-9 w-9 shrink-0 rounded-full bg-[#ccc]"
         />
 
         {/* Video Title and Metadata */}
-        <div style={{ flex: 1, minWidth: 0 }}>
+        <div className="min-w-0 flex-1">
           {/* Video Title - truncated to 2 lines */}
-          <h3
-            style={{
-              margin: "0 0 8px 0",
-              ...getTextStyle("videoTitle", "medium"),
-              lineHeight: "1.4",
-              display: "-webkit-box",
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              color: TEXT_COLORS.primary,
-            }}
-          >
+          <h3 className="mb-2 line-clamp-2 text-sm font-medium leading-[1.4] text-text-primary">
             {video.title}
           </h3>
 
           {/* Channel Name - clickable in real app */}
-          <p
-            style={{
-              margin: "0 0 4px 0",
-              ...getTextStyle("channelName"),
-              color: TEXT_COLORS.secondary,
-            }}
-          >
+          <p className="mb-1 text-xs text-text-secondary">
             {video.channelName}
           </p>
 
           {/* View Count and Upload Date */}
-          <p
-            style={{
-              margin: "0",
-              ...getTextStyle("metadata"),
-              color: TEXT_COLORS.secondary,
-            }}
-          >
+          <p className="text-xs text-text-secondary">
             {formatViews(video.views)} views • {video.uploadDate}
           </p>
         </div>
@@ -283,43 +214,14 @@ function Sidebar() {
   ];
 
   return (
-    <div
-      style={{
-        width: "250px",
-        height: "100vh",
-        backgroundColor: "#f9f9f9",
-        borderRight: "1px solid #e0e0e0",
-        padding: "16px 0",
-        overflowY: "auto",
-        position: "fixed",
-        left: 0,
-        top: "56px",
-        fontFamily: FONTS.primary,
-      }}
-    >
+    <div className="fixed left-0 top-14 h-screen w-[250px] overflow-y-auto border-r border-border bg-surface py-4">
       {/* Sidebar Menu Items */}
       {menuItems.map((item, index) => (
         <div
           key={index}
-          style={{
-            padding: "12px 24px",
-            cursor: "pointer",
-            ...getTextStyle("body"),
-            display: "flex",
-            alignItems: "center",
-            gap: "24px",
-            color: TEXT_COLORS.primary,
-            transition: "background-color 0.2s",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.backgroundColor = "#f0f0f0";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.backgroundColor =
-              "transparent";
-          }}
+          className="flex cursor-pointer items-center gap-6 px-6 py-3 text-sm text-text-primary transition-colors duration-200 hover:bg-hover"
         >
-          <span style={{ fontSize: "20px" }}>{item.icon}</span>
+          <span className="text-xl">{item.icon}</span>
           <span>{item.label}</span>
         </div>
       ))}
@@ -331,33 +233,9 @@ function Sidebar() {
 function Header() {
   let navigate = useNavigate();
   return (
-    <div
-      style={{
-        height: "56px",
-        backgroundColor: "white",
-        borderBottom: "1px solid #e0e0e0",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        paddingLeft: "16px",
-        paddingRight: "16px",
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-        fontFamily: FONTS.primary,
-      }}
-    >
+    <div className="fixed left-0 right-0 top-0 z-100 flex h-14 items-center justify-between border-b border-border bg-white px-4">
       {/* Logo */}
-      <div
-        style={{
-          fontSize: "24px",
-          fontWeight: FONT_WEIGHTS.bold,
-          color: TEXT_COLORS.primary,
-          cursor: "pointer",
-        }}
-      >
+      <div className="cursor-pointer text-2xl font-bold text-text-primary">
         ▶️ YouTube
       </div>
 
@@ -365,34 +243,13 @@ function Header() {
       <input
         type="text"
         placeholder="Search"
-        style={{
-          width: "350px",
-          padding: "10px 16px",
-          borderRadius: "24px",
-          border: "1px solid #ccc",
-          ...getTextStyle("body"),
-          outline: "none",
-        }}
+        className="w-[350px] rounded-3xl border border-[#ccc] px-4 py-2.5 text-sm outline-none"
       />
 
       {/* User Profile / Sign In */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "16px",
-        }}
-      >
+      <div className="flex items-center gap-4">
         <button
-          style={{
-            padding: "8px 24px",
-            borderRadius: "20px",
-            border: "1px solid #3ea6ff",
-            backgroundColor: "white",
-            color: "#3ea6ff",
-            cursor: "pointer",
-            ...getTextStyle("body", "medium"),
-          }}
+          className="cursor-pointer rounded-[20px] border border-accent bg-white px-6 py-2 text-sm font-medium text-accent"
           onClick={() => {
             navigate("/signup");
           }}
@@ -432,36 +289,17 @@ export function Home() {
   }, []);
 
   return (
-    <div
-      style={{
-        backgroundColor: "#f9f9f9",
-        minHeight: "100vh",
-        fontFamily: FONTS.primary,
-      }}
-    >
+    <div className="min-h-screen bg-surface">
       <Header />
-      <div style={{ display: "flex", marginTop: "56px" }}>
+      <div className="mt-14 flex">
         <Sidebar />
-        <div
-          style={{
-            marginLeft: "250px",
-            padding: "24px",
-            flex: 1,
-          }}
-        >
+        <div className="ml-[250px] flex-1 p-6">
           {loading && (
-            <div style={{ textAlign: "center", padding: "40px" }}>
+            <div className="p-10 text-center">
               <p>Loading videos...</p>
             </div>
           )}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-              gap: "16px",
-              width: "100%",
-            }}
-          >
+          <div className="grid w-full gap-4 grid-cols-[repeat(auto-fill,minmax(320px,1fr))]">
             {videos.map((video) => (
               <VideoCard key={video.id} video={video} />
             ))}
